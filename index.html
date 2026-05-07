@@ -1,0 +1,280 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OrganoChem - Complete Organic Chemistry Atlas</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=JetBrains+Mono:wght@300;400;600&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-multi-page="true" id="top">
+<div class="progress-bar" id="progress"></div>
+<canvas id="bg-canvas"></canvas>
+<div class="overlay-backdrop" id="backdrop" onclick="closeDetail()"></div>
+<div class="detail-overlay" id="detailPanel">
+  <div onclick="closeDetail()" class="detail-close" role="button" aria-label="Close content" tabindex="0"></div>
+  <div id="detailContent"></div>
+</div>
+<nav>
+  <div class="nav-logo"><a href="index.html" style="text-decoration:none;color:inherit">OrganoChem</a></div>
+  <ul class="nav-links">
+    <li><a href="index.html">Index</a></li>
+    <li><a href="pdf-notes.html">PDF Notes</a></li>
+    <li><button class="tools-launch" id="openStudyTools" type="button">Study Tools</button></li>
+    <li class="parts-menu">
+      <button class="parts-button" type="button">Parts</button>
+      <div class="parts-dropdown">
+        <a href="parts/part-01-goc.html"><span>01</span>General Organic Chemistry</a>
+        <a href="parts/part-02-stereochemistry.html"><span>02</span>Stereochemistry</a>
+        <a href="parts/part-03-functional-groups.html"><span>03</span>Functional Group Chemistry</a>
+        <a href="parts/part-04-redox.html"><span>04</span>Oxidation & Reduction</a>
+        <a href="parts/part-05-rearrangements.html"><span>05</span>Rearrangement Reactions</a>
+        <a href="parts/part-06-couplings.html"><span>06</span>Coupling Reactions</a>
+        <a href="parts/part-07-named-reactions.html"><span>07</span>Named Reactions</a>
+        <a href="parts/part-08-analytical.html"><span>08</span>Analytical & Practical Organic</a>
+        <a href="parts/part-09-pharma-industrial.html"><span>09</span>Industrial & Pharma Organic Chemistry</a>
+        <a href="parts/part-10-advanced.html"><span>10</span>Advanced Concepts</a>
+        <a href="interview.html"><span>IV</span>Interview Preparation</a>
+        <a href="structure-editor.html"><span>SE</span>Online Structure Editor</a>
+      </div>
+    </li>
+    <li><a href="interview.html">Interview</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to light mode" title="Toggle dark / light mode"></button>
+    <div class="nav-indicator"></div>
+  </div>
+</nav>
+<aside class="floating-toc" aria-label="Chapter navigation">
+  <a href="parts/part-01-goc.html" title="GOC">01</a>
+  <a href="parts/part-02-stereochemistry.html" title="Stereochemistry">02</a>
+  <a href="parts/part-03-functional-groups.html" title="Functional Groups">03</a>
+  <a href="parts/part-04-redox.html" title="Oxidation & Reduction">04</a>
+  <a href="parts/part-05-rearrangements.html" title="Rearrangements">05</a>
+  <a href="parts/part-06-couplings.html" title="Couplings">06</a>
+  <a href="parts/part-07-named-reactions.html" title="Named Reactions">07</a>
+  <a href="parts/part-08-analytical.html" title="Analytical">08</a>
+  <a href="parts/part-09-pharma-industrial.html" title="Pharma">09</a>
+  <a href="parts/part-10-advanced.html" title="Advanced">10</a>
+  <a href="interview.html" title="Interview Prep">IV</a>
+</aside>
+<a class="top-button" href="#top" title="Back to top">↑</a>
+<main>
+<section class="hero" id="home">
+  <svg class="molecule-bg" viewBox="0 0 600 600">
+    <g class="mol-spin">
+      <g stroke="rgba(0,229,255,0.7)" stroke-width="1.2" fill="none">
+        <circle cx="300" cy="300" r="220"/>
+        <circle cx="300" cy="300" r="160"/>
+        <circle cx="300" cy="300" r="100"/>
+      </g>
+      <g stroke="rgba(191,90,242,0.5)" stroke-width="0.8" fill="none">
+        <circle cx="300" cy="300" r="190"/>
+        <circle cx="300" cy="300" r="130"/>
+      </g>
+      <g stroke="rgba(0,229,255,0.8)" stroke-width="1.4" fill="none">
+        <line x1="300" y1="80" x2="300" y2="520"/>
+        <line x1="80" y1="300" x2="520" y2="300"/>
+        <line x1="144" y1="144" x2="456" y2="456"/>
+        <line x1="456" y1="144" x2="144" y2="456"/>
+      </g>
+      <g stroke="rgba(255,214,10,0.35)" stroke-width="0.7" fill="none">
+        <line x1="300" y1="110" x2="456" y2="456"/>
+        <line x1="490" y1="300" x2="144" y2="456"/>
+        <line x1="300" y1="490" x2="144" y2="144"/>
+        <line x1="110" y1="300" x2="456" y2="144"/>
+      </g>
+      <circle cx="300" cy="80" r="16" fill="rgba(0,229,255,0.25)" stroke="rgba(0,229,255,0.8)" stroke-width="1.5"/>
+      <circle cx="300" cy="520" r="16" fill="rgba(0,229,255,0.25)" stroke="rgba(0,229,255,0.8)" stroke-width="1.5"/>
+      <circle cx="80" cy="300" r="16" fill="rgba(0,229,255,0.25)" stroke="rgba(0,229,255,0.8)" stroke-width="1.5"/>
+      <circle cx="520" cy="300" r="16" fill="rgba(0,229,255,0.25)" stroke="rgba(0,229,255,0.8)" stroke-width="1.5"/>
+      <circle cx="144" cy="144" r="11" fill="rgba(191,90,242,0.4)" stroke="rgba(191,90,242,0.9)" stroke-width="1.2"/>
+      <circle cx="456" cy="456" r="11" fill="rgba(191,90,242,0.4)" stroke="rgba(191,90,242,0.9)" stroke-width="1.2"/>
+      <circle cx="456" cy="144" r="11" fill="rgba(191,90,242,0.4)" stroke="rgba(191,90,242,0.9)" stroke-width="1.2"/>
+      <circle cx="144" cy="456" r="11" fill="rgba(191,90,242,0.4)" stroke="rgba(191,90,242,0.9)" stroke-width="1.2"/>
+      <circle cx="300" cy="300" r="22" fill="rgba(255,214,10,0.18)" stroke="rgba(255,214,10,0.7)" stroke-width="1.5"/>
+      <circle cx="300" cy="300" r="10" fill="rgba(255,214,10,0.5)"/>
+    </g>
+    <g class="mol-spin-reverse" stroke="rgba(255,55,95,0.25)" stroke-width="0.8" fill="none">
+      <circle cx="300" cy="300" r="280"/>
+      <line x1="300" y1="20" x2="300" y2="580"/>
+      <line x1="20" y1="300" x2="580" y2="300"/>
+    </g>
+  </svg>
+  <div class="hero-eyebrow">Complete Notes By Subrat Biswas</div>
+  <h1 class="hero-title">
+    <span>Organic</span>
+    <span>Chemistry</span>
+  </h1>
+  <p class="hero-sub">From molecular foundations to complex name reactions — the most comprehensive interactive guide to carbon chemistry.</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">200+</div><div class="stat-label">Name Reactions</div></div>
+    <div class="stat"><div class="stat-num">50+</div><div class="stat-label">Functional Groups</div></div>
+    <div class="stat"><div class="stat-num">30+</div><div class="stat-label">Reaction Classes</div></div>
+    <div class="stat"><div class="stat-num">∞</div><div class="stat-label">Possibilities</div></div>
+  </div>
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    <span>Scroll to explore</span>
+  </div>
+</section>
+<section class="study-console" aria-label="Interactive study tools">
+  <div class="study-console-head">
+    <div>
+      <div class="console-kicker">Interactive Lab Console</div>
+      <h2>Study faster with reaction tools, quiz cards and reagent maps</h2>
+    </div>
+    <button class="console-close" id="closeStudyTools" type="button" aria-label="Close study tools"></button>
+    <div class="console-progress">
+      <div class="console-progress-top"><span id="studyProgressText">0/10 Parts Done</span><span id="studyProgressPercent">0%</span></div>
+      <div class="console-progress-track"><div id="studyProgressFill"></div></div>
+    </div>
+  </div>
+
+  <div class="console-grid">
+    <div class="console-panel search-panel">
+      <div class="panel-top">
+        <div><span class="panel-code">01</span><h3>Global Search</h3></div>
+        <span class="panel-chip">Topic Finder</span>
+      </div>
+      <input class="study-input" id="globalStudySearch" type="search" placeholder="Search Grignard, SN1, NMR, PCC, Suzuki..." autocomplete="off">
+      <div class="search-results" id="globalSearchResults"></div>
+    </div>
+
+    <div class="console-panel reaction-panel">
+      <div class="panel-top">
+        <div><span class="panel-code">02</span><h3>Reaction Explorer</h3></div>
+        <span class="panel-chip">Predict Product</span>
+      </div>
+      <div class="control-row">
+        <select class="study-select" id="reactantSelect" aria-label="Reactant"></select>
+        <select class="study-select" id="reagentSelect" aria-label="Reagent"></select>
+      </div>
+      <div class="reaction-output" id="reactionOutput"></div>
+    </div>
+
+    <div class="console-panel quiz-panel">
+      <div class="panel-top">
+        <div><span class="panel-code">03</span><h3>Quiz Mode</h3></div>
+        <span class="panel-chip" id="quizScore">Score 0/0</span>
+      </div>
+      <div class="quiz-question" id="quizQuestion"></div>
+      <div class="quiz-options" id="quizOptions"></div>
+      <div class="quiz-answer" id="quizAnswer"></div>
+      <button class="console-button" type="button" id="nextQuizBtn">Next Question</button>
+    </div>
+
+    <div class="console-panel flashcard-panel">
+      <div class="panel-top">
+        <div><span class="panel-code">04</span><h3>Flashcards</h3></div>
+        <span class="panel-chip" id="flashcardCount">1/1</span>
+      </div>
+      <button class="flashcard" id="flashcard" type="button">
+        <span id="flashcardFront"></span>
+        <small>Click to flip</small>
+      </button>
+      <div class="button-row">
+        <button class="console-button ghost" type="button" id="prevFlashcard">Previous</button>
+        <button class="console-button" type="button" id="nextFlashcard">Next</button>
+      </div>
+    </div>
+
+    <div class="console-panel molecule-panel">
+      <div class="panel-top">
+        <div><span class="panel-code">05</span><h3>Molecule Cards</h3></div>
+        <span class="panel-chip">Structures</span>
+      </div>
+      <div class="molecule-grid" id="moleculeGrid"></div>
+    </div>
+
+    <div class="console-panel mechanism-panel">
+      <div class="panel-top">
+        <div><span class="panel-code">06</span><h3>Mechanism Steps</h3></div>
+        <span class="panel-chip">Stepwise</span>
+      </div>
+      <select class="study-select" id="mechanismSelect" aria-label="Mechanism"></select>
+      <div class="mechanism-flow" id="mechanismFlow"></div>
+    </div>
+
+    <div class="console-panel reagent-panel">
+      <div class="panel-top">
+        <div><span class="panel-code">07</span><h3>Reagent Cheat Sheet</h3></div>
+        <span class="panel-chip">Searchable</span>
+      </div>
+      <input class="study-input" id="reagentSearch" type="search" placeholder="Search reagent, use, condition..." autocomplete="off">
+      <div class="reagent-table-wrap">
+        <table class="reagent-table">
+          <thead><tr><th>Reagent</th><th>Use</th><th>Notes</th></tr></thead>
+          <tbody id="reagentTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="console-panel interview-panel">
+      <div class="panel-top">
+        <div><span class="panel-code">08</span><h3>Interview Practice</h3></div>
+        <span class="panel-chip">API R&D</span>
+      </div>
+      <div class="interview-question" id="interviewQuestion"></div>
+      <button class="console-button" type="button" id="showInterviewAnswer">Show Answer</button>
+      <div class="interview-answer" id="interviewAnswer"></div>
+      <button class="console-button ghost" type="button" id="nextInterview">Next Question</button>
+    </div>
+
+    <div class="console-panel progress-panel">
+      <div class="panel-top">
+        <div><span class="panel-code">09</span><h3>Study Progress</h3></div>
+        <span class="panel-chip">Saved Here</span>
+      </div>
+      <div class="part-check-grid" id="partCheckGrid"></div>
+    </div>
+
+    <div class="console-panel print-panel">
+      <div class="panel-top">
+        <div><span class="panel-code">10</span><h3>Print / Notes Mode</h3></div>
+        <span class="panel-chip">PDF Ready</span>
+      </div>
+      <p>Clean print mode removes dark UI effects and makes notes easier to export as PDF from the browser print dialog.</p>
+      <div class="button-row">
+        <button class="console-button" type="button" id="printNotesBtn">Print Notes</button>
+        <button class="console-button ghost" type="button" id="togglePrintMode">Toggle Clean View</button>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="quick-map" aria-label="Master index">
+  <div class="quick-map-inner">
+    <div class="quick-map-top">
+      <div>
+        <div class="quick-map-title">Master Index - Complete Organic Chemistry</div>
+        <div class="quick-map-sub">Each part opens like a separate page. Content is preserved, and extra missing topics are added as structured study pages.</div>
+      </div>
+      <div class="quick-map-hint">10-Part Atlas</div>
+    </div>
+    <div class="index-part-grid">
+      <a class="index-part" href="parts/part-01-goc.html"><div class="index-part-num">Part 01</div><div class="index-part-title">General Organic Chemistry</div><ul class="index-part-list"><li>Basic concepts</li><li>Electronic effects</li><li>Acid-base chemistry</li><li>Intermediates & mechanisms</li><li>Aromaticity & solvents</li></ul></a>
+      <a class="index-part" href="parts/part-02-stereochemistry.html"><div class="index-part-num">Part 02</div><div class="index-part-title">Stereochemistry</div><ul class="index-part-list"><li>Isomerism</li><li>Conformations</li><li>E/Z configuration</li><li>Optical activity</li><li>Chirality & CIP rules</li></ul></a>
+      <a class="index-part" href="parts/part-03-functional-groups.html"><div class="index-part-num">Part 03</div><div class="index-part-title">Functional Group Chemistry</div><ul class="index-part-list"><li>Hydrocarbons</li><li>Alkyl halides</li><li>Alcohols & phenols</li><li>Carbonyls & acids</li><li>Amines, amides, heterocycles</li></ul></a>
+      <a class="index-part" href="parts/part-04-redox.html"><div class="index-part-num">Part 04</div><div class="index-part-title">Oxidation & Reduction</div><ul class="index-part-list"><li>Oxidation reactions</li><li>Oxidising agents</li><li>Reduction reactions</li><li>Reducing agents</li><li>Products, conditions, pharma notes</li></ul></a>
+      <a class="index-part" href="parts/part-05-rearrangements.html"><div class="index-part-num">Part 05</div><div class="index-part-title">Rearrangement Reactions</div><ul class="index-part-list"><li>Carbocation rearrangements</li><li>Nitrogen rearrangements</li><li>Oxygen rearrangements</li><li>Pericyclic rearrangements</li><li>Wagner-Meerwein, Hofmann, Curtius</li></ul></a>
+      <a class="index-part" href="parts/part-06-couplings.html"><div class="index-part-num">Part 06</div><div class="index-part-title">Coupling Reactions</div><ul class="index-part-list"><li>Cross-couplings</li><li>Homo couplings</li><li>C-N / C-O couplings</li><li>Suzuki, Heck, Sonogashira</li><li>Buchwald-Hartwig, Ullmann</li></ul></a>
+      <a class="index-part" href="parts/part-07-named-reactions.html"><div class="index-part-num">Part 07</div><div class="index-part-title">Named Reactions</div><ul class="index-part-list"><li>C-C bond formation</li><li>Substitution reactions</li><li>Oxidation / reduction</li><li>Cyclization</li><li>Pericyclic reactions</li></ul></a>
+      <a class="index-part" href="parts/part-08-analytical.html"><div class="index-part-num">Part 08</div><div class="index-part-title">Analytical & Practical Organic</div><ul class="index-part-list"><li>TLC</li><li>Column chromatography</li><li>Distillation techniques</li><li>IR spectroscopy</li><li>NMR & mass spectroscopy</li></ul></a>
+      <a class="index-part" href="parts/part-09-pharma-industrial.html"><div class="index-part-num">Part 09</div><div class="index-part-title">Industrial & Pharma Organic</div><ul class="index-part-list"><li>Impurity profiling</li><li>GTI & nitrosamine risk</li><li>Reaction optimization</li><li>Scale-up chemistry</li><li>Green chemistry</li></ul></a>
+      <a class="index-part" href="parts/part-10-advanced.html"><div class="index-part-num">Part 10</div><div class="index-part-title">Advanced Concepts</div><ul class="index-part-list"><li>Pericyclic reactions</li><li>Organometallic chemistry</li><li>Retrosynthesis</li><li>Protecting groups</li><li>Asymmetric synthesis</li></ul></a>
+      <a class="index-part" href="#" data-open-synthesis-map><div class="index-part-num">Synthesis Map</div><div class="index-part-title">Bond Formation Explorer</div><ul class="index-part-list"><li>C-C, C-N, C-O and C-S bonds</li><li>Couplings, additions, substitutions</li><li>Reagents and reaction conditions</li><li>Limitations and pharma notes</li><li>Retrosynthesis-oriented browsing</li></ul></a>
+      <a class="index-part" href="#" data-open-protecting-groups><div class="index-part-num">Protecting Groups</div><div class="index-part-title">Stability Matrix</div><ul class="index-part-list"><li>Amino, carbonyl, carboxyl, hydroxyl groups</li><li>Stable / moderate / labile conditions</li><li>Acid, base, nucleophile, redox compatibility</li><li>Deprotection strategy</li><li>Route planning reference</li></ul></a>
+      <a class="index-part" href="interview.html"><div class="index-part-num">Interview</div><div class="index-part-title">Interview Preparation</div><ul class="index-part-list"><li>Basic organic & reaction concepts</li><li>Reagents & functional group transformations</li><li>Process chemistry & scale-up</li><li>Analytical & characterization</li><li>Advanced & tricky pharma questions</li></ul></a>
+    </div>
+  </div>
+</section>
+</main>
+<footer>
+  <p>OrganoChem — <span>The Complete Organic Chemistry by Subrat Biswas</span></p>
+  <p style="margin-top:0.5rem"><span>Subrat Biswas is a Research Scientist in the API Research and Development division at Sun Pharmaceutical Industries Ltd., with over four years of experience in synthetic organic chemistry and process development. His work focuses on API synthesis, impurity profiling, and scale-up of chemical processes, with a strong emphasis on regulatory compliance and efficient drug development.</p>
+</footer>
+<script src="assets/js/main.js?v=5"></script>
+</body>
+</html>
+
+
